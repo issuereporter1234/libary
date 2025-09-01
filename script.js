@@ -1,0 +1,74 @@
+const myLibary = []
+function Book(name, author, pages, haveRead){
+this.name = name;
+this.autor = author;
+this.pages = pages;
+this.haveRead = haveRead
+this.id = crypto.randomUUID()
+}
+
+const harryPoter = new Book('Harry Poter', 'J. K. Rowling', 4100, false)
+const lotr = new Book('The Lord of the Rings', 'J. R. R. Tolkien', 1178, true)
+const dune = new Book('Dune', 'Frank Herbert', 896, false)
+const gatsby = new Book('The Great Gatsby', 'F. Scott Fitzgerald', 218, true)
+const orwell = new Book('1984', 'George Orwell', 328, false)
+const mobyDick = new Book('Moby Dick', 'Herman Melville', 635, false)
+
+
+function addBookToLibary(addBook, index){
+
+    myLibary[index] = addBook;
+  
+}
+function builtInBooks(){
+    addBookToLibary(harryPoter, 0);
+    addBookToLibary(dune, 1);
+    addBookToLibary(gatsby, 2);
+    addBookToLibary(orwell, 3);
+    addBookToLibary(mobyDick, 4);
+}
+builtInBooks();
+
+const table = document.querySelector('table')
+const tbody = document.querySelector('tbody')
+
+
+function displayAllBooks(){
+    tbody.innerHTML = ''
+    for(let i = 0 ;i < myLibary.length ; i++ ){
+
+        
+        const tableTr = document.createElement('tr');
+            
+        const tableBookName = document.createElement('td');
+        const tableAuthor = document.createElement('td');
+        const numberOfPages = document.createElement('td');
+        const haveReadEl = document.createElement('td');
+
+        tableTr.setAttribute('id', myLibary[i].id)
+        tbody.append(tableTr)
+
+
+        tableBookName.innerText = myLibary[i].name
+        tableTr.append(tableBookName);
+
+        tableAuthor.innerText = myLibary[i].autor
+        tableTr.append(tableAuthor)
+
+        numberOfPages.innerText = myLibary[i].pages
+        tableTr.append(numberOfPages)
+
+        haveReadEl.innerText = myLibary[i].haveRead
+        tableTr.append(haveReadEl)
+
+    }
+}
+displayAllBooks()
+function newLibaryIndex(){
+   return  myLibary.length
+}
+function addMoreBooks(name, author, pages, haveRead){
+   let newBook = new Book(name, author, pages, haveRead)
+   addBookToLibary(newBook, newLibaryIndex())
+   displayAllBooks()
+}
