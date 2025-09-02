@@ -32,6 +32,16 @@ builtInBooks();
 const table = document.querySelector('table')
 const tbody = document.querySelector('tbody')
 
+function deleteBook(deleteId){
+    for(let i = 0; i < myLibary.length; i++){
+        if (myLibary[i].id === deleteId){
+            myLibary.splice(i, 1)
+        }
+        }
+        displayAllBooks()
+}
+
+
 
 function displayAllBooks(){
     tbody.innerHTML = ''
@@ -44,6 +54,8 @@ function displayAllBooks(){
         const tableAuthor = document.createElement('td');
         const numberOfPages = document.createElement('td');
         const haveReadEl = document.createElement('td');
+        const deleteBtn = document.createElement('button')
+        const emptyTd = document.createElement('td')
 
         tableTr.setAttribute('id', myLibary[i].id)
         tbody.append(tableTr)
@@ -58,8 +70,24 @@ function displayAllBooks(){
         numberOfPages.innerText = myLibary[i].pages
         tableTr.append(numberOfPages)
 
-        haveReadEl.innerText = myLibary[i].haveRead
+        if (myLibary[i].haveRead){
+            haveReadEl.innerText = 'Read'
+        }
+        else if(!myLibary[i].haveRead){
+            haveReadEl.innerText = 'Not read'
+        }
+        else {
+            haveReadEl.innerText = 'Error'
+        }
         tableTr.append(haveReadEl)
+
+        deleteBtn.innerText = 'Delete the book'
+        tableTr.append(emptyTd)
+        emptyTd.append(deleteBtn)
+
+        deleteBtn.onclick = () => deleteBook(myLibary[i].id)
+
+        
 
     }
 }
@@ -72,3 +100,17 @@ function addMoreBooks(name, author, pages, haveRead){
    addBookToLibary(newBook, newLibaryIndex())
    displayAllBooks()
 }
+
+document.querySelector('#add-book-form form').addEventListener('submit', function(event){
+    event.preventDefault();
+
+    const name = document.getElementById('name').value;
+    const autor = document.getElementById('autor').value;
+    const pages = Number(document.getElementById('pages').value);
+    const haveRead = document.querySelector('input[name="haveRead"]:checked')?.value === "true"
+
+    addMoreBooks(name, autor, pages, haveRead)
+});
+
+
+ 

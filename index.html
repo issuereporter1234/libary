@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>issuereporter1234's libary</h1>
-
+<button id="new-book">New book</button>
     <table border="1">
     <thead>
         <tr>
@@ -16,13 +16,29 @@
                 <th>Author</th>
                 <th>Number of pages</th>
                 <th>Have i read the book?</th>
+                <th></th>
         </tr>
     </thead>
 
-    <tbody>
-    
-    </tbody>
+    <tbody></tbody>
 </table>
+<div id="add-book-form">
+    <form action="">
+        <label for="Name">Book Name</label>
+        <input name="name" id="name" type="text">
+
+        <label for="autor">Author</label>
+        <input name="autor" id="autor" type="text" >
+
+        <label for="pages">Number of Pages</label>
+        <input name="pages" id="pages" type="number">
+        <div>
+        <label for="haveRead">I have read the book</label>
+        <input type="checkbox" name="haveRead" id="haveRead" value="true">
+        </div>
+        <button id="add">Add new book</button>
+    </form>
+</div>
 
 
 
