@@ -23,15 +23,20 @@
     <tbody></tbody>
 </table>
 <div id="add-book-form">
-    <form action="">
+    <div class="container1">
+    <div class="exp-1">Add new book</div>
+    <img src="img/circle-close-multiple-svgrepo-com.svg" alt="close icon" class="close" id="close">
+    </div>
+    <form id="book-form">
+    
         <label for="Name">Book Name</label>
-        <input name="name" id="name" type="text">
+        <input name="name" id="name" type="text" required>
 
         <label for="autor">Author</label>
-        <input name="autor" id="autor" type="text" >
+        <input name="autor" id="autor" type="text" required>
 
         <label for="pages">Number of Pages</label>
-        <input name="pages" id="pages" type="number">
+        <input name="pages" id="pages" type="number" required>
         <div>
         <label for="haveRead">I have read the book</label>
         <input type="checkbox" name="haveRead" id="haveRead" value="true">
