@@ -1,13 +1,13 @@
-const myLibary = []
+const myLibrary = []
 function Book(name, author, pages, haveRead){
 this.name = name;
-this.autor = author;
+this.author = author;
 this.pages = pages;
 this.haveRead = haveRead
 this.id = crypto.randomUUID()
 }
 
-const harryPoter = new Book('Harry Poter', 'J. K. Rowling', 4100, false)
+const harryPotter = new Book('Harry Poter', 'J. K. Rowling', 4100, false)
 const lotr = new Book('The Lord of the Rings', 'J. R. R. Tolkien', 1178, true)
 const dune = new Book('Dune', 'Frank Herbert', 896, false)
 const gatsby = new Book('The Great Gatsby', 'F. Scott Fitzgerald', 218, true)
@@ -16,18 +16,15 @@ const mobyDick = new Book('Moby Dick', 'Herman Melville', 635, false)
 const wizardOfOz = new Book('The Wizard of Oz', 'L. Frank Baum', 240, true)
 
 
-function addBookToLibary(addBook, index){
 
-    myLibary[index] = addBook;
-  
-}
 function builtInBooks(){
-    addBookToLibary(harryPoter, 0);
-    addBookToLibary(dune, 1);
-    addBookToLibary(gatsby, 2);
-    addBookToLibary(orwell, 3);
-    addBookToLibary(mobyDick, 4);
-    addBookToLibary(wizardOfOz, 5)
+    myLibrary.push(harryPotter)
+    myLibrary.push(lotr)
+    myLibrary.push(dune)
+    myLibrary.push(gatsby)
+    myLibrary.push(orwell)
+    myLibrary.push(mobyDick)
+    myLibrary.push(wizardOfOz)
 }
 builtInBooks();
 
@@ -35,19 +32,19 @@ const table = document.querySelector('table')
 const tbody = document.querySelector('tbody')
 
 function deleteBook(deleteId){
-    for(let i = 0; i < myLibary.length; i++){
-        if (myLibary[i].id === deleteId){
-            myLibary.splice(i, 1)
+    for(let i = 0; i < myLibrary.length; i++){
+        if (myLibrary[i].id === deleteId){
+            myLibrary.splice(i, 1)
         }
-        }
-        displayAllBooks()
+    }
+     displayAllBooks()
 }
 
 
 
 function displayAllBooks(){
     tbody.innerHTML = ''
-    for(let i = 0 ;i < myLibary.length ; i++ ){
+    for(let i = 0 ;i < myLibrary.length ; i++ ){
 
         
         const tableTr = document.createElement('tr');
@@ -61,23 +58,23 @@ function displayAllBooks(){
         const emptyTd = document.createElement('td')
         const emptyTd2 = document.createElement('td')
 
-        tableTr.setAttribute('id', myLibary[i].id)
+        tableTr.setAttribute('id', myLibrary[i].id)
         tbody.append(tableTr)
 
 
-        tableBookName.innerText = myLibary[i].name
+        tableBookName.innerText = myLibrary[i].name
         tableTr.append(tableBookName);
 
-        tableAuthor.innerText = myLibary[i].autor
+        tableAuthor.innerText = myLibrary[i].author
         tableTr.append(tableAuthor)
 
-        numberOfPages.innerText = myLibary[i].pages
+        numberOfPages.innerText = myLibrary[i].pages
         tableTr.append(numberOfPages)
 
-        if (myLibary[i].haveRead){
+        if (myLibrary[i].haveRead){
             haveReadEl.innerText = 'Read'
         }
-        else if(!myLibary[i].haveRead){
+        else if(!myLibrary[i].haveRead){
             haveReadEl.innerText = 'Not read'
         }
         else {
@@ -93,25 +90,24 @@ function displayAllBooks(){
         emptyTd2.append(changeBtn)
         changeBtn.classList.add('change')
 
-        changeBtn.onclick = () => changeStatus(myLibary[i].id)
+        changeBtn.onclick = () => changeStatus(myLibrary[i].id)
 
         deleteBtn.innerText = 'Delete the book'
         tableTr.append(emptyTd)
         emptyTd.append(deleteBtn)
 
-        deleteBtn.onclick = () => deleteBook(myLibary[i].id)
+        deleteBtn.onclick = () => deleteBook(myLibrary[i].id)
 
         
 
     }
 }
 displayAllBooks()
-function newLibaryIndex(){
-   return  myLibary.length
-}
+
 function addMoreBooks(name, author, pages, haveRead){
    let newBook = new Book(name, author, pages, haveRead)
-   addBookToLibary(newBook, newLibaryIndex())
+
+   myLibrary.push(newBook)
    displayAllBooks()
 }
 
@@ -119,30 +115,18 @@ document.querySelector('#add-book-form form').addEventListener('submit', functio
     event.preventDefault();
 
     const name = document.getElementById('name').value;
-    const autor = document.getElementById('autor').value;
+    const author = document.getElementById('author').value;
     const pages = Number(document.getElementById('pages').value);
-    let haveRead = document.querySelector('input[name="haveRead"]:checked')?.value === "true"
-    if(haveRead === 'true'){
-        haveRead = true
-    }
-
-    else{
-        false
-    }
-
-    addMoreBooks(name, autor, pages, haveRead)
+    let haveRead = document.getElementById('haveRead').checked
+   
+    addMoreBooks(name, author, pages, haveRead)
     document.getElementById('book-form').reset();
 });
 
 function changeStatus(id){
-    for(let i = 0; i < myLibary.length; i++){
-        if (myLibary[i].id === id){
-            if(myLibary[i].haveRead){
-                myLibary[i].haveRead = false
-            }
-            else if(!myLibary[i].haveRead){
-                myLibary[i].haveRead = true
-            }
+    for(let i = 0; i < myLibrary.length; i++){
+        if (myLibrary[i].id === id){
+            myLibrary[i].haveRead = !myLibrary[i].haveRead
         }
         }
         displayAllBooks()
